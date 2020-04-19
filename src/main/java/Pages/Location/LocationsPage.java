@@ -16,6 +16,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class LocationsPage extends BasePage {
     private final String LOCATION_ALREADY_EXISTS_ERROR_SELECTOR = "#frmLocation > div:nth-child(7) > label";
     private final String LOCATION_NAMES_SELECTOR = "table > tbody > tr > td > a";
+    private final String TABLE_SELECTOR = "#frmList_ohrmListComponent > table";
 
     @FindBy (id = "rightMenu")
     WebElement locationPageFrame;
@@ -38,7 +39,7 @@ public class LocationsPage extends BasePage {
     public LocationsPage(WebDriver driver) {
         super(driver);
         wait.until(frameToBeAvailableAndSwitchToIt(locationPageFrame));
-        locationTable = new Table(driver);
+        locationTable = new Table(driver, TABLE_SELECTOR);
     }
 
     public AddLocationPage clickAddLocation() {

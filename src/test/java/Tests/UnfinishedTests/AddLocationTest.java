@@ -16,6 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class AddLocationTest extends BaseTest {
     final String LOCATION_NAME = "Buenos Aires" + getRandomNumberAsString();
     final String SUCCESS_MESSAGE = SAVE_SUCCESS_MESSAGE;
+    final int LOCATION_NAME_COLUMN_INDEX = 1;
 
     @Test
     public void addLocationTest() {
@@ -23,11 +24,12 @@ public class AddLocationTest extends BaseTest {
         homePage.goToLocationsPage();
 
         LocationsPage locationsPage = new LocationsPage(driver);
+
         AddLocationPage addLocationPage = locationsPage.clickAddLocation();
 
         addLocationPage.addNewLocation(LOCATION_NAME, ARGENTINA.NAME);
 
         assertThat(locationsPage.getSuccessMessageText(), is(SUCCESS_MESSAGE));
-        assertThat(locationsPage.getLocationTable().getLocationNames(), hasItem(LOCATION_NAME));
+        assertThat(locationsPage.getLocationTable().getCellsOfColumn(LOCATION_NAME_COLUMN_INDEX), hasItem(LOCATION_NAME));
     }
 }
