@@ -1,6 +1,8 @@
 package Pages.Location;
 
+import Components.Table;
 import Pages.BasePage;
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,9 +32,13 @@ public class LocationsPage extends BasePage {
     @FindBy (css = LOCATION_NAMES_SELECTOR)
     private List<WebElement> locationNames;
 
+    @Getter
+    private Table locationTable;
+
     public LocationsPage(WebDriver driver) {
         super(driver);
         wait.until(frameToBeAvailableAndSwitchToIt(locationPageFrame));
+        locationTable = new Table(driver);
     }
 
     public AddLocationPage clickAddLocation() {
@@ -49,16 +55,16 @@ public class LocationsPage extends BasePage {
         return (this.successMessage.getText());
     }
 
-    public ArrayList<String> getLocationNames() {
+    /* public ArrayList<String> getLocationNames() {
         ArrayList<String> locationNamesStrings = new ArrayList<String>();
         for (WebElement location : this.locationNames) {
             locationNamesStrings.add(location.getText());
         }
 
         return (locationNamesStrings);
-    }
+    } */
 
-    public String getRandomLocationNameFromTable() {
+    /* public String getRandomLocationNameFromTable() {
         int randomLocationIndexFromTable;
         String locationName;
 
@@ -66,5 +72,5 @@ public class LocationsPage extends BasePage {
         locationName = this.getLocationNames().get(randomLocationIndexFromTable);
 
         return (locationName);
-    }
+    } */
 }

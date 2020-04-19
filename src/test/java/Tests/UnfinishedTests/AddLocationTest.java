@@ -5,14 +5,16 @@ import Pages.Location.AddLocationPage;
 import Pages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Test;
+
 import static Constants.Country.ARGENTINA;
 import static Constants.Errors.SAVE_SUCCESS_MESSAGE;
+import static Processes.NumberUtils.getRandomNumberAsString;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AddLocationTest extends BaseTest {
-    final String LOCATION_NAME = "Buenos Aires";
+    final String LOCATION_NAME = "Buenos Aires" + getRandomNumberAsString();
     final String SUCCESS_MESSAGE = SAVE_SUCCESS_MESSAGE;
 
     @Test
@@ -26,7 +28,6 @@ public class AddLocationTest extends BaseTest {
         addLocationPage.addNewLocation(LOCATION_NAME, ARGENTINA.NAME);
 
         assertThat(locationsPage.getSuccessMessageText(), is(SUCCESS_MESSAGE));
-        assertThat(locationsPage.getLocationNames(), hasItem(LOCATION_NAME));
-
+        assertThat(locationsPage.getLocationTable().getLocationNames(), hasItem(LOCATION_NAME));
     }
 }

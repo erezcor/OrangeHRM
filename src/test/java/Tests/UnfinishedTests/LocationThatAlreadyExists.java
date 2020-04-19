@@ -21,7 +21,7 @@ public class LocationThatAlreadyExists extends BaseTest {
         homePage.goToLocationsPage();
 
         LocationsPage locationsPage = new LocationsPage(driver);
-        locationName = locationsPage.getRandomLocationNameFromTable();
+        //locationName = locationsPage.getRandomLocationNameFromTable();
         //locationsPage.addNewLocation(locationName, ARGENTINA.NAME);
 
         assertThat(locationsPage.getErrorMessageText(), is(LOCATION_ALREADY_EXISTS_ERROR));
