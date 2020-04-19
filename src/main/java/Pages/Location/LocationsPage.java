@@ -33,17 +33,15 @@ public class LocationsPage extends BasePage {
     @FindBy (css = LOCATION_NAMES_SELECTOR)
     private List<WebElement> locationNames;
 
-    @Getter
     private Table locationTable;
 
     public LocationsPage(WebDriver driver) {
         super(driver);
         wait.until(frameToBeAvailableAndSwitchToIt(locationPageFrame));
-        locationTable = new Table(driver, TABLE_SELECTOR);
     }
 
     public AddLocationPage clickAddLocation() {
-        wait.until(ExpectedConditions.visibilityOf(this.addLocationButton));
+        wait.until(visibilityOf(this.addLocationButton));
         this.addLocationButton.click();
         return (new AddLocationPage(driver));
     }
@@ -56,22 +54,8 @@ public class LocationsPage extends BasePage {
         return (this.successMessage.getText());
     }
 
-    /* public ArrayList<String> getLocationNames() {
-        ArrayList<String> locationNamesStrings = new ArrayList<String>();
-        for (WebElement location : this.locationNames) {
-            locationNamesStrings.add(location.getText());
-        }
-
-        return (locationNamesStrings);
-    } */
-
-    /* public String getRandomLocationNameFromTable() {
-        int randomLocationIndexFromTable;
-        String locationName;
-
-        randomLocationIndexFromTable = (int)(this.locationNames.size() * Math.random());
-        locationName = this.getLocationNames().get(randomLocationIndexFromTable);
-
-        return (locationName);
-    } */
+    public Table getLocationTable() {
+        locationTable = new Table(driver, TABLE_SELECTOR);
+        return locationTable;
+    }
 }

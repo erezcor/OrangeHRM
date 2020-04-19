@@ -3,7 +3,6 @@ package Components;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -20,15 +19,17 @@ public class Table {
     WebDriverWait wait;
     WebElement table;
 
-
     public Table(WebDriver driver, String tableSelector) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, SECONDS_TO_WAIT);
         table = driver.findElement(By.cssSelector(tableSelector));
     }
 
+    public WebElement getRow(int rowIndex) {
+        return getRows().get(rowIndex);
+    }
+
     public List<WebElement> getRows() {
-        wait.until(visibilityOf(table));
         return table.findElements(By.cssSelector(rowSelector));
     }
 
@@ -43,8 +44,4 @@ public class Table {
     private WebElement getCellFromRow(int columnIndex, WebElement row) {
         return row.findElements(By.tagName(cellTag)).get(columnIndex);
     }
-
-//    public ArrayList<String> getColumn(String columnSelector) {
-//        List<WebElement> column = driver.findElements(By.cssSelector(columnSelector));
-//    }
 }
