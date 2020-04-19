@@ -1,10 +1,10 @@
 package Tests.UnfinishedTests;
 
 import Pages.HomePage;
-import Pages.LocationsPage;
+import Pages.Location.AddLocationPage;
+import Pages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Test;
-
 import static Constants.Country.ARGENTINA;
 import static Constants.Errors.SAVE_SUCCESS_MESSAGE;
 import static org.hamcrest.CoreMatchers.hasItem;
@@ -21,7 +21,9 @@ public class AddLocationTest extends BaseTest {
         homePage.goToLocationsPage();
 
         LocationsPage locationsPage = new LocationsPage(driver);
-        locationsPage.AddNewLocation(LOCATION_NAME, ARGENTINA.NAME);
+        AddLocationPage addLocationPage = locationsPage.clickAddLocation();
+
+        addLocationPage.addNewLocation(LOCATION_NAME, ARGENTINA.NAME);
 
         assertThat(locationsPage.getSuccessMessageText(), is(SUCCESS_MESSAGE));
         assertThat(locationsPage.getLocationNames(), hasItem(LOCATION_NAME));

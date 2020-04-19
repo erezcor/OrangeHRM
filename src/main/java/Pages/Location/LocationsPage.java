@@ -1,11 +1,15 @@
-package Pages;
+package Pages.Location;
 
+import Pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class LocationsPage extends BasePage {
     private final String LOCATION_ALREADY_EXISTS_ERROR_SELECTOR = "#frmLocation > div:nth-child(7) > label";
@@ -16,15 +20,6 @@ public class LocationsPage extends BasePage {
 
     @FindBy (id = "btnAdd")
     private WebElement addLocationButton;
-
-    @FindBy (id = "location_name")
-    private WebElement locationName;
-
-    @FindBy (id = "location_country")
-    private WebElement locationCountry;
-
-    @FindBy (id = "btnSave")
-    private WebElement saveLocationButton;
 
     @FindBy (className = "messageBalloon_success")
     private WebElement successMessage;
@@ -37,15 +32,13 @@ public class LocationsPage extends BasePage {
 
     public LocationsPage(WebDriver driver) {
         super(driver);
-        driver.switchTo().frame(locationPageFrame);
+        wait.until(frameToBeAvailableAndSwitchToIt(locationPageFrame));
     }
 
-    public void AddNewLocation(String locationName, String countryName) {
+    public AddLocationPage clickAddLocation() {
+        wait.until(ExpectedConditions.visibilityOf(this.addLocationButton));
         this.addLocationButton.click();
-        this.locationName.sendKeys(locationName);
-        Select country = new Select(locationCountry);
-        country.selectByVisibleText(countryName);
-        this.saveLocationButton.click();
+        return (new AddLocationPage(driver));
     }
 
     public String getErrorMessageText() {

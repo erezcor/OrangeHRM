@@ -1,7 +1,7 @@
 package Tests.UnfinishedTests;
 
 import Pages.HomePage;
-import Pages.LocationsPage;
+import Pages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class LocationThatAlreadyExists extends BaseTest {
 
         LocationsPage locationsPage = new LocationsPage(driver);
         locationName = locationsPage.getRandomLocationNameFromTable();
-        locationsPage.AddNewLocation(locationName, ARGENTINA.NAME);
+        //locationsPage.addNewLocation(locationName, ARGENTINA.NAME);
 
         assertThat(locationsPage.getErrorMessageText(), is(LOCATION_ALREADY_EXISTS_ERROR));
     }

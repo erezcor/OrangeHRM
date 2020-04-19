@@ -11,5 +11,5 @@ public class CONST {
     public static String ORGANIZATION_PHONE_NUMBER = "+9753454964";
     public static String ORGANIZATION_FAX_NUMBER = "+23139218329";
 
-    public static int SECONDS_TO_WAIT = 10;
+    public static int SECONDS_TO_WAIT = 20;
 }
