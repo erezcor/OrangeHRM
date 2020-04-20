@@ -1,5 +1,6 @@
 package Components;
 
+import Constants.LocationTableColumns;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static Constants.CONST.SECONDS_TO_WAIT;
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static Constants.LocationTableColumns.*;
 
 public class Table {
     private final String rowSelector = "tbody > tr";
@@ -25,6 +26,18 @@ public class Table {
         table = driver.findElement(By.cssSelector(tableSelector));
     }
 
+    public WebElement getCellByLocationName(int cellIndex, String locationName) {
+        return getCellFromRow(cellIndex, getRowByTextInColumn(NAME.INDEX, locationName));
+    }
+
+    public WebElement getRowByTextInColumn(int columnIndex, String text) {
+        return getRow(getRowIndexByTextInColumn(columnIndex, text));
+    }
+
+    public int getRowIndexByTextInColumn(int columnIndex, String text) {
+        return getCellsOfColumnInString(columnIndex).indexOf(text);
+    }
+
     public WebElement getRow(int rowIndex) {
         return getRows().get(rowIndex);
     }
@@ -33,15 +46,23 @@ public class Table {
         return table.findElements(By.cssSelector(rowSelector));
     }
 
-    public List<String> getCellsOfColumn(List<WebElement> rows, int columnIndex) {
-        return rows.stream().map(row -> getCellFromRow(columnIndex, row).getText()).collect(Collectors.toList());
+    public List<WebElement> getCellsOfColumn(List<WebElement> rows, int columnIndex) {
+        return rows.stream().map(row -> getCellFromRow(columnIndex, row)).collect(Collectors.toList());
     }
 
-    public List<String> getCellsOfColumn(int columnIndex) {
+    public List<WebElement> getCellsOfColumn(int columnIndex) {
         return getCellsOfColumn(getRows(), columnIndex);
     }
 
-    private WebElement getCellFromRow(int columnIndex, WebElement row) {
+    public List<String> getCellsOfColumnInString(List<WebElement> rows, int columnIndex) {
+        return getCellsOfColumn(rows, columnIndex).stream().map(cell -> cell.getText()).collect(Collectors.toList());
+    }
+
+    public List<String> getCellsOfColumnInString(int columnIndex) {
+        return getCellsOfColumnInString(getRows(), columnIndex);
+    }
+
+    public WebElement getCellFromRow(int columnIndex, WebElement row) {
         return row.findElements(By.tagName(cellTag)).get(columnIndex);
     }
 }

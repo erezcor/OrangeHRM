@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 public class AddLocationPage extends BasePage {
+    private final String LOCATION_ALREADY_EXISTS_ERROR_SELECTOR = "#frmLocation > div:nth-child(7) > label";
+
     @FindBy(id = "location_name")
     private WebElement locationName;
 
@@ -15,6 +17,12 @@ public class AddLocationPage extends BasePage {
 
     @FindBy (id = "btnSave")
     private WebElement saveLocationButton;
+
+    @FindBy (id = "btnCancel")
+    private WebElement cancelButton;
+
+    @FindBy (css = LOCATION_ALREADY_EXISTS_ERROR_SELECTOR)
+    private WebElement locationAlreadyExistsError;
 
     public AddLocationPage(WebDriver driver) {
         super(driver);
@@ -25,5 +33,14 @@ public class AddLocationPage extends BasePage {
         Select country = new Select(locationCountry);
         country.selectByVisibleText(countryName);
         this.saveLocationButton.click();
+    }
+
+    public String getErrorMessageText() {
+        return (this.locationAlreadyExistsError.getText());
+    }
+
+    public LocationsPage clickCancelAddingLocation() {
+        this.cancelButton.click();
+        return (new LocationsPage(driver));
     }
 }

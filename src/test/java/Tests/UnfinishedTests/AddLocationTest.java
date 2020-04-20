@@ -1,15 +1,15 @@
 package Tests.UnfinishedTests;
 
 import Constants.LocationTableColumns;
-import Pages.HomePage;
 import Pages.Location.AddLocationPage;
 import Pages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Test;
 
 import static Constants.Country.ARGENTINA;
-import static Constants.Errors.SAVE_SUCCESS_MESSAGE;
+import static Constants.SuccessMessages.SAVE_SUCCESS_MESSAGE;
 import static Processes.NumberUtils.getRandomNumberAsString;
+import static Processes.Utils.goToLocationsPage;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -21,16 +21,15 @@ public class AddLocationTest extends BaseTest {
 
     @Test
     public void addLocationTest() {
-        HomePage homePage = new HomePage(driver);
-        homePage.goToLocationsPage();
+        goToLocationsPage(driver);
 
         LocationsPage locationsPage = new LocationsPage(driver);
-
         AddLocationPage addLocationPage = locationsPage.clickAddLocation();
-
         addLocationPage.addNewLocation(LOCATION_NAME, ARGENTINA.NAME);
 
+        locationsPage.clickOnLocationCheckboxOf(LOCATION_NAME);
+
         assertThat(locationsPage.getSuccessMessageText(), is(SUCCESS_MESSAGE));
-        assertThat(locationsPage.getLocationTable().getCellsOfColumn(LocationTableColumns.NAME.INDEX), hasItem(LOCATION_NAME));
+        assertThat(locationsPage.getLocationTable().getCellsOfColumnInString(LocationTableColumns.NAME.INDEX), hasItem(LOCATION_NAME));
     }
 }
