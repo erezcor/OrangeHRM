@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import static Constants.CONST.SECONDS_TO_WAIT;
 import static Constants.LocationTableColumns.*;
 
-public class Table {
+public class Table implements TableInterface {
     private final String rowSelector = "tbody > tr";
     private final String cellTag = "td";
 

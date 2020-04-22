@@ -6,9 +6,9 @@ import Pages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
+
 import static Constants.Country.ARGENTINA;
 import static Constants.Errors.ALREADY_EXISTS_ERROR;
-import static Constants.LocationTableColumns.NAME;
 import static Processes.NumberUtils.getRandomNumberAsString;
 import static Processes.Utils.addNewLocation;
 import static Processes.Utils.goToLocationsPage;

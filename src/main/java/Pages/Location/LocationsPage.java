@@ -2,14 +2,13 @@ package Pages.Location;
 
 import Components.Table;
 import Pages.BasePage;
+import Pages.OrganizationInfoPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-
 import java.util.List;
-
 import static Constants.LocationTableColumns.CHECKBOX;
 import static Constants.LocationTableColumns.NAME;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
@@ -87,4 +86,16 @@ public class LocationsPage extends BasePage {
     public void clickOnTagInsideCell(WebElement cell, String tag) {
         cell.findElement(By.tagName(tag)).click();
     }
+
+    openURL {
+        driver.open
+    }
+
+    BasePage page1 = new LocationsPage();
+    BasePage page2 = new OrganizationInfoPage();
+
+    openPage(BasePage page) {
+        page.openURL;
+    }
+
 }

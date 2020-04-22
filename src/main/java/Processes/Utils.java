@@ -1,15 +1,14 @@
 package Processes;
 
-import static Constants.CONST.ADMIN_USERNAME;
-import static Constants.CONST.ADMIN_PASSWORD;
-import static Constants.Country.ARGENTINA;
-
 import Constants.Country;
 import Pages.HomePage;
 import Pages.Location.AddLocationPage;
 import Pages.Location.LocationsPage;
 import Pages.LoginPage;
 import org.openqa.selenium.WebDriver;
+
+import static Constants.CONST.ADMIN_PASSWORD;
+import static Constants.CONST.ADMIN_USERNAME;
 
 public class Utils {
 

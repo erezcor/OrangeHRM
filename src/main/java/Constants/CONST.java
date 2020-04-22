@@ -1,5 +1,7 @@
 package Constants;
 
+import Components.Table;
+import Components.TableInterface;
 import Entities.Organization;
 
 public class CONST {

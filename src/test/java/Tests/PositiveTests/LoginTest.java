@@ -1,5 +1,6 @@
 package Tests.PositiveTests;
 
+import Pages.BasePage;
 import Pages.HomePage;
 import Tests.BaseTest;
 import org.junit.Assert;
