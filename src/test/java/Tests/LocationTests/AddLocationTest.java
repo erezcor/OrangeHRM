@@ -1,8 +1,8 @@
-package Tests.UnfinishedTests;
+package Tests.LocationTests;
 
-import Constants.LocationTableColumns;
-import Pages.Location.AddLocationPage;
-import Pages.Location.LocationsPage;
+import Constants.Country;
+import Pages.rightMenuFramePages.Location.LocationInfoPage;
+import Pages.rightMenuFramePages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Test;
 
@@ -17,19 +17,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class AddLocationTest extends BaseTest {
     final String LOCATION_NAME = "Buenos Aires" + getRandomNumberAsString();
     final String SUCCESS_MESSAGE = SAVE_SUCCESS_MESSAGE;
-    final int LOCATION_NAME_COLUMN_INDEX = LocationTableColumns.NAME.INDEX;
+    Country country = ARGENTINA;
 
     @Test
     public void addLocationTest() {
         goToLocationsPage(driver);
 
         LocationsPage locationsPage = new LocationsPage(driver);
-        AddLocationPage addLocationPage = locationsPage.clickAddLocation();
-        addLocationPage.addNewLocation(LOCATION_NAME, ARGENTINA.NAME);
-
-        locationsPage.clickOnLocationCheckboxOf(LOCATION_NAME);
+        LocationInfoPage locationInfoPage = locationsPage.clickAddLocation();
+        locationInfoPage.addNewLocationDetails(LOCATION_NAME, ARGENTINA.NAME);
 
         assertThat(locationsPage.getSuccessMessageText(), is(SUCCESS_MESSAGE));
-        assertThat(locationsPage.getLocationTable().getCellsOfColumnInString(LocationTableColumns.NAME.INDEX), hasItem(LOCATION_NAME));
+        assertThat(locationsPage.getLocationNameColumnFromTable(), hasItem(LOCATION_NAME));
     }
 }

@@ -1,8 +1,8 @@
-package Tests.UnfinishedTests;
+package Tests.LocationTests;
 
 import Constants.Country;
-import Pages.Location.AddLocationPage;
-import Pages.Location.LocationsPage;
+import Pages.rightMenuFramePages.Location.LocationInfoPage;
+import Pages.rightMenuFramePages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,11 +31,10 @@ public class LocationThatAlreadyExists extends BaseTest {
     public void addLocationThatAlreadyExists() {
         addNewLocation(driver, locationName, locationCountry);
 
-        AddLocationPage addLocationPage = new AddLocationPage(driver);
-        assertThat(addLocationPage.getErrorMessageText(), is(LOCATION_ALREADY_EXISTS_ERROR));
+        LocationInfoPage locationInfoPage = new LocationInfoPage(driver);
+        assertThat(locationInfoPage.getErrorMessageText(), is(LOCATION_ALREADY_EXISTS_ERROR));
 
-        LocationsPage locationsPage = addLocationPage.clickCancelAddingLocation();
-        int addedLocationNameCount = locationsPage.countHowManyTimesNameAppearsInTable(locationName);
-        assertThat(addedLocationNameCount, is(LOCATION_APPEARS_ONE_TIME_COUNT));
+        LocationsPage locationsPage = locationInfoPage.clickCancelAddingLocation();
+        assertThat(locationsPage.countHowManyTimesNameAppearsInTable(locationName), is(LOCATION_APPEARS_ONE_TIME_COUNT));
     }
 }

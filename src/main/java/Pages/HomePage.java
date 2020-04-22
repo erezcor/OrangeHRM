@@ -28,9 +28,6 @@ public class HomePage extends BasePage {
     @FindBy (css = LOCATION_BUTTON_SELECTOR)
     protected WebElement locationsButton;
 
-    @FindBy (id = "rightMenu")
-    private WebElement locationPageFrame;
-
     public HomePage(WebDriver driver) {
         super(driver);
     }

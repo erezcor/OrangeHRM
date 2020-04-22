@@ -1,7 +1,7 @@
 package Tests.NegativeTests.OrganizationInfoNegativeTests;
 
 import Entities.Organization;
-import Pages.OrganizationInfoPage;
+import Pages.rightMenuFramePages.OrganizationInfoPage;
 import Tests.BaseTest;
 import org.junit.Test;
 
