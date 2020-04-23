@@ -1,10 +1,9 @@
-package Tests.UnfinishedTests;
+package Tests.NotWorkingTests;
 
 import Constants.Country;
 import Pages.rightMenuFramePages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Test;
-
 import static Constants.CONST.LOCATION_COUNTRY;
 import static Constants.CONST.LOCATION_NAME;
 import static Constants.SuccessMessages.*;
