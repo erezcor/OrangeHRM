@@ -1,19 +1,17 @@
-package Pages;
+package Pages.rightMenuFramePages;
 
 import Entities.Organization;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-public class OrganizationInfoPage extends BasePage {
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+
+public class OrganizationInfoPage extends rightMenuFramePage {
     final String SUCCESS_MESSAGE_SELECTOR = "#messagebar > span";
     final String INVALID_EMAIL_ERROR_SELECTOR = "#frmGenInfo > div:nth-child(10) > label > label";
     final String INVALID_PHONE_ERROR_SELECTOR = "#frmGenInfo > div:nth-child(9) > label:nth-child(1) > label";
     final String INVALID_FAX_ERROR_SELECTOR = "#frmGenInfo > div:nth-child(9) > label:nth-child(4) > label";
-
-    @FindBy (id = "rightMenu")
-    WebElement orgInfoPageFrame;
 
     @FindBy (id = "organization_name")
     WebElement organizationName;
@@ -50,7 +48,6 @@ public class OrganizationInfoPage extends BasePage {
 
     public OrganizationInfoPage(WebDriver driver) {
         super(driver);
-        driver.switchTo().frame(orgInfoPageFrame);
     }
 
     public String getNoOrganizationNameErrorMessageText() {

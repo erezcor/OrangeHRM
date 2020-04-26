@@ -1,11 +1,11 @@
 package Tests.PositiveTests;
 
 import Entities.Organization;
-import Pages.OrganizationInfoPage;
+import Pages.rightMenuFramePages.OrganizationInfoPage;
 import Tests.BaseTest;
 import org.junit.Test;
 
-import static Constants.Errors.SAVE_SUCCESS_MESSAGE;
+import static Constants.SuccessMessages.SAVE_SUCCESS_MESSAGE;
 import static Entities.Organization.anOrganizationDetails;
 import static Processes.Utils.goToOrganizationInfoPage;
 import static org.hamcrest.CoreMatchers.is;
