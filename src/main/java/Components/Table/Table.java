@@ -3,11 +3,13 @@ package Components.Table;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import static Constants.CONST.SECONDS_TO_WAIT;
 import static java.util.stream.Collectors.toList;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class Table {
     private final String rowSelector = "tbody > tr";
@@ -20,7 +22,6 @@ public class Table {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, SECONDS_TO_WAIT);
         this.tableSelector = tableSelector;
-
     }
 
     public TableRow getRow(int rowIndex) {
@@ -40,6 +41,12 @@ public class Table {
     }
 
     private WebElement getTable() {
-        return driver.findElement(By.cssSelector(tableSelector));
+        WebElement table = driver.findElement(By.cssSelector(tableSelector));
+        wait.until(visibilityOf(table));
+        return table;
+    }
+
+    public String getNoRecordsFoundErrorText() {
+        return getRow(0).getCell(0).getText();
     }
 }

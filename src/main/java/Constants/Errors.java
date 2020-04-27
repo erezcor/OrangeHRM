@@ -5,5 +5,6 @@ public class Errors {
     public static final String REQUIRED_FIELD_ERROR = "Required";
     public static final String INVALID_NUMBER_ERROR = "Allows numbers and only + - / ( )";
     public static final String ALREADY_EXISTS_ERROR = "Already exists";
+    public static final String NO_RECORDS_FOUND_IN_SEARCH = "No Records Found";
 
 }

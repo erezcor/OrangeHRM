@@ -11,8 +11,7 @@ import java.util.List;
 
 import static Constants.LocationTableColumns.CHECKBOX;
 import static Constants.LocationTableColumns.NAME;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class LocationsPage extends rightMenuFramePage {
     private final String LOCATION_NAMES_SELECTOR = "table > tbody > tr > td > a";
@@ -27,14 +26,17 @@ public class LocationsPage extends rightMenuFramePage {
     @FindBy (id = "dialogDeleteBtn")
     private WebElement confirmDeleteButton;
 
+    @FindBy (id = "searchLocation_name")
+    private WebElement searchLocationName;
+
     @FindBy (id = "btnSearch")
-    private WebElement searchLocationButton;
+    private WebElement searchButton;
+
+    @FindBy (id = "btnReset")
+    private WebElement resetSearchButton;
 
     @FindBy (className = "messageBalloon_success")
     private WebElement successMessage;
-
-    @FindBy (css = LOCATION_NAMES_SELECTOR)
-    private List<WebElement> locationNames;
 
     private Table locationTable;
 
@@ -79,5 +81,19 @@ public class LocationsPage extends rightMenuFramePage {
 
     public List<String> getLocationNameColumnFromTable() {
         return getLocationTable().getColumnInString(NAME.INDEX);
+    }
+
+    public void searchLocation(String locationName) {
+        this.searchLocationName.sendKeys(locationName);
+        this.searchButton.click();
+        wait.until(visibilityOf(this.addLocationButton));
+    }
+
+    public void resetLocationSearch() {
+        this.resetSearchButton.click();
+    }
+
+    public String getNoRecordsFoundErrorText() {
+        return this.getLocationTable().getNoRecordsFoundErrorText();
     }
 }

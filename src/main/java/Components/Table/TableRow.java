@@ -26,12 +26,16 @@ public class TableRow {
         return getCells().get(columnIndex);
     }
 
+    //public void clickCell(int columnIndex) {
+      //  getCell(columnIndex).
+    //
+
     public List<TableCell> getCells() {
         return row.findElements(By.tagName(cellTag)).stream().map(cell -> new TableCell(driver, cell)).collect(toList());
     }
 
     public boolean doesRowHaveItemOf(String text, int columnIndex) {
-        return getCells().get(columnIndex).getText().equals(text);
+        return getCell(columnIndex).getText().equals(text);
     }
 
 }

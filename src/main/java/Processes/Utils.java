@@ -32,6 +32,6 @@ public class Utils {
     public static void addNewLocation(WebDriver driver, String locationName, Country country) {
         LocationsPage locationsPage = new LocationsPage(driver);
         LocationInfoPage locationInfoPage = locationsPage.clickAddLocation();
-        locationInfoPage.addNewLocationDetails(locationName, country.NAME);
+        locationInfoPage.addNewLocation(locationName, country);
     }
 }

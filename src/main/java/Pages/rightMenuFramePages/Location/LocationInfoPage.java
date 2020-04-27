@@ -1,5 +1,6 @@
 package Pages.rightMenuFramePages.Location;
 
+import Constants.Country;
 import Pages.rightMenuFramePages.rightMenuFramePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,10 +32,18 @@ public class LocationInfoPage extends rightMenuFramePage {
         super(driver);
     }
 
-    public void addNewLocationDetails(String locationName, String countryName) {
+    public void addNewLocation(String locationName, Country country) {
+        this.insertLocationDetails(locationName, country);
+        this.saveLocation();
+    }
+
+    public void insertLocationDetails(String locationName, Country country) {
         this.locationName.sendKeys(locationName);
-        Select country = new Select(locationCountry);
-        country.selectByVisibleText(countryName);
+        Select countrySelect = new Select(locationCountry);
+        countrySelect.selectByVisibleText(country.NAME);
+    }
+
+    private void saveLocation() {
         this.saveLocationButton.click();
     }
 
@@ -47,10 +56,10 @@ public class LocationInfoPage extends rightMenuFramePage {
         return (new LocationsPage(driver));
     }
 
-    public void editLocation(String locationName, String countryName) {
+    public void editLocation(String locationName, Country country) {
         this.editLocationButton.click();
         clearAllFields();
-        addNewLocationDetails(locationName, countryName);
+        addNewLocation(locationName, country);
     }
 
     public void clearAllFields() {
