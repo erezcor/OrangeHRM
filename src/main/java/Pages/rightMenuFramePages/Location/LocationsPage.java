@@ -1,6 +1,7 @@
 package Pages.rightMenuFramePages.Location;
 
 import Components.Table.Table;
+import Entities.Location;
 import Pages.rightMenuFramePages.rightMenuFramePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,10 +10,9 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static Constants.LocationTableColumns.CHECKBOX;
-import static Constants.LocationTableColumns.NAME;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+import static Constants.Table.LocationTableColumns.CHECKBOX;
+import static Constants.Table.LocationTableColumns.NAME;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class LocationsPage extends rightMenuFramePage {
     private final String LOCATION_NAMES_SELECTOR = "table > tbody > tr > td > a";
@@ -27,14 +27,17 @@ public class LocationsPage extends rightMenuFramePage {
     @FindBy (id = "dialogDeleteBtn")
     private WebElement confirmDeleteButton;
 
+    @FindBy (id = "searchLocation_name")
+    private WebElement searchLocationName;
+
     @FindBy (id = "btnSearch")
-    private WebElement searchLocationButton;
+    private WebElement searchButton;
+
+    @FindBy (id = "btnReset")
+    private WebElement resetSearchButton;
 
     @FindBy (className = "messageBalloon_success")
     private WebElement successMessage;
-
-    @FindBy (css = LOCATION_NAMES_SELECTOR)
-    private List<WebElement> locationNames;
 
     private Table locationTable;
 
@@ -43,25 +46,31 @@ public class LocationsPage extends rightMenuFramePage {
     }
 
     public LocationInfoPage clickAddLocation() {
-        wait.until(visibilityOf(this.addLocationButton));
-        wait.until(elementToBeClickable(this.addLocationButton));
-        Actions action = new Actions(driver);
-        action.moveToElement(this.addLocationButton).click().perform();
+        addLocationButton.click();
         return new LocationInfoPage(driver);
     }
 
-    public LocationInfoPage clickEditLocation(String locationName) {
-        getLocationTable().getRowByTextInColumn(NAME.INDEX, locationName).getCell(NAME.INDEX).clickOnTagInsideCell("a");
+    public LocationInfoPage clickEditLocation(Location location) {
+        getLocationTable().getRowByTextInColumn(NAME, location.getName()).clickOnCell(NAME);
         return new LocationInfoPage(driver);
+    }
+
+    public void searchLocation(Location location) {
+        searchLocationName.sendKeys(location.getName());
+        searchButton.click();
+    }
+
+    public void resetLocationSearch() {
+        resetSearchButton.click();
+    }
+
+    public void clickOnLocationCheckboxOf(Location location) {
+        getLocationTable().getRowByTextInColumn(NAME, location.getName()).clickOnCell(CHECKBOX);
     }
 
     public void deleteLocation() {
-        this.deleteLocationButton.click();
-        wait.until(elementToBeClickable(this.confirmDeleteButton)).click();
-    }
-
-    public String getSuccessMessageText() {
-        return (this.successMessage.getText());
+        deleteLocationButton.click();
+        wait.until(elementToBeClickable(confirmDeleteButton)).click();
     }
 
     private Table getLocationTable() {
@@ -69,15 +78,19 @@ public class LocationsPage extends rightMenuFramePage {
         return locationTable;
     }
 
-    public int countHowManyTimesNameAppearsInTable(String locationName) {
-        return (int) getLocationTable().getColumnInString(NAME.INDEX).stream().filter(name -> name.equals(locationName)).count();
-    }
-
-    public void clickOnLocationCheckboxOf(String locationName) {
-        getLocationTable().getRowByTextInColumn(CHECKBOX.INDEX, locationName).getCell(CHECKBOX.INDEX).clickOnTagInsideCell(CHECKBOX.SELECTOR);
+    public int countHowManyTimesNameAppearsInTable(Location location) {
+        return (int) getLocationTable().getColumnInString(NAME).stream().filter(name -> name.equals(location.getName())).count();
     }
 
     public List<String> getLocationNameColumnFromTable() {
-        return getLocationTable().getColumnInString(NAME.INDEX);
+        return getLocationTable().getColumnInString(NAME);
+    }
+
+    public String getSuccessMessageText() {
+        return successMessage.getText();
+    }
+
+    public String getNoRecordsFoundErrorText() {
+        return getLocationTable().getNoRecordsFoundErrorText();
     }
 }

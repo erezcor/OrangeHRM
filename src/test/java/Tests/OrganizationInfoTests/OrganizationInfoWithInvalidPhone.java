@@ -1,4 +1,4 @@
-package Tests.NegativeTests.OrganizationInfoNegativeTests;
+package Tests.OrganizationInfoTests;
 
 import Entities.Organization;
 import Pages.rightMenuFramePages.OrganizationInfoPage;

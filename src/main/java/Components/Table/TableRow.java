@@ -1,5 +1,6 @@
 package Components.Table;
 
+import Constants.Table.TableColumn;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,7 +23,15 @@ public class TableRow {
         this.row = row;
     }
 
-    public TableCell getCell(int columnIndex) {
+    public String getCellText(TableColumn column) {
+        return getCell(column).getText();
+    }
+
+    public TableCell getCell(TableColumn column) {
+        return getCellByIndex(column.getIndex());
+    }
+
+    protected TableCell getCellByIndex(int columnIndex) {
         return getCells().get(columnIndex);
     }
 
@@ -30,8 +39,12 @@ public class TableRow {
         return row.findElements(By.tagName(cellTag)).stream().map(cell -> new TableCell(driver, cell)).collect(toList());
     }
 
-    public boolean doesRowHaveItemOf(String text, int columnIndex) {
-        return getCells().get(columnIndex).getText().equals(text);
+    public void clickOnCell(TableColumn column) {
+        getCell(column).clickOnTagInsideCell(column);
+    }
+
+    public boolean hasItemOf(String text, TableColumn column) {
+        return getCellText(column).equals(text);
     }
 
 }
