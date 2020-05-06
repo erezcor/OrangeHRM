@@ -1,31 +1,28 @@
 package Tests.LocationTests;
 
-import Constants.Country;
+import Entities.Location;
 import Pages.rightMenuFramePages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Test;
 
 import static Constants.Errors.NO_RECORDS_FOUND_IN_SEARCH;
+import static Entities.Location.generateLocation;
+import static Processes.Utils.addNewLocation;
+import static Processes.Utils.goToLocationsPage;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import static Constants.Country.EGYPT;
-import static Processes.NumberUtils.getRandomNumberAsString;
-import static Processes.Utils.addNewLocation;
-import static Processes.Utils.goToLocationsPage;
-
 public class NonExistLocationSearchTest extends BaseTest {
-    String locationNameForFillingTable = "Las Vegas" + getRandomNumberAsString();
-    Country locationCountryForFillingTable = EGYPT;
-    String locationNameForSearch = "Italy" + getRandomNumberAsString();
+    Location locationForFillingTable = generateLocation().build();
+    Location locationForSearch = generateLocation().build();
 
     @Test
     public void invalidSearchTest() {
         goToLocationsPage(driver);
-        addNewLocation(driver, locationNameForFillingTable, locationCountryForFillingTable);
+        addNewLocation(driver, locationForFillingTable);
 
         LocationsPage locationsPage = new LocationsPage(driver);
-        locationsPage.searchLocation(locationNameForSearch);
+        locationsPage.searchLocation(locationForSearch);
 
         assertThat(locationsPage.getNoRecordsFoundErrorText(), is(NO_RECORDS_FOUND_IN_SEARCH));
     }

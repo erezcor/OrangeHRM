@@ -1,6 +1,7 @@
 package Processes;
 
 import Constants.Country;
+import Entities.Location;
 import Pages.HomePage;
 import Pages.rightMenuFramePages.Location.LocationInfoPage;
 import Pages.rightMenuFramePages.Location.LocationsPage;
@@ -29,9 +30,14 @@ public class Utils {
         homePage.goToLocationsPage();
     }
 
-    public static void addNewLocation(WebDriver driver, String locationName, Country country) {
+    public static void goToCandidatesPage(WebDriver driver) {
+        HomePage homePage = new HomePage(driver);
+        homePage.goToCandidatesPage();
+    }
+
+    public static void addNewLocation(WebDriver driver, Location location) {
         LocationsPage locationsPage = new LocationsPage(driver);
         LocationInfoPage locationInfoPage = locationsPage.clickAddLocation();
-        locationInfoPage.addNewLocation(locationName, country);
+        locationInfoPage.addNewLocation(location);
     }
 }

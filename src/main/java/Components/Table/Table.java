@@ -1,18 +1,19 @@
 package Components.Table;
 
+import Constants.Table.TableColumn;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import static Constants.CONST.SECONDS_TO_WAIT;
 import static java.util.stream.Collectors.toList;
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class Table {
     private final String rowSelector = "tbody > tr";
+    final int NO_RECORDS_ROW_INDEX = 0;
+    final int NO_RECORDS_COLUMN_INDEX = 0;
 
     WebDriver driver;
     WebDriverWait wait;
@@ -32,21 +33,19 @@ public class Table {
         return getTable().findElements(By.cssSelector(rowSelector)).stream().map(row -> new TableRow(driver, row)).collect(toList());
     }
 
-    public TableRow getRowByTextInColumn(int columnIndex, String text) {
-        return getRows().stream().filter(row -> row.doesRowHaveItemOf(text, columnIndex)).collect(toList()).get(0);
+    public TableRow getRowByTextInColumn(TableColumn column, String text) {
+        return getRows().stream().filter(row -> row.hasItemOf(text, column)).collect(toList()).get(0);
     }
 
-    public List<String> getColumnInString(int columnIndex) {
-        return getRows().stream().map(row -> row.getCell(columnIndex).getText()).collect(toList());
+    public List<String> getColumnInString(TableColumn column) {
+        return getRows().stream().map(row -> row.getCellText(column)).collect(toList());
     }
 
     private WebElement getTable() {
-        WebElement table = driver.findElement(By.cssSelector(tableSelector));
-        wait.until(visibilityOf(table));
-        return table;
+        return driver.findElement(By.cssSelector(tableSelector));
     }
 
     public String getNoRecordsFoundErrorText() {
-        return getRow(0).getCell(0).getText();
+        return getRow(NO_RECORDS_ROW_INDEX).getCellByIndex(NO_RECORDS_COLUMN_INDEX).getText();
     }
 }

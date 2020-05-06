@@ -1,12 +1,10 @@
 package Tests.LocationTests;
 
-import Constants.Country;
+import Entities.Location;
 import Pages.rightMenuFramePages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Test;
 
-import static Constants.Country.ARGENTINA;
-import static Processes.NumberUtils.getRandomNumberAsString;
 import static Processes.Utils.addNewLocation;
 import static Processes.Utils.goToLocationsPage;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,17 +12,16 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.everyItem;
 
 public class SearchLocation extends BaseTest {
-    String locationName = "Las Vegas" + getRandomNumberAsString();
-    Country locationCountry = ARGENTINA;
+    Location location = Location.generateLocation().build();
 
     @Test
     public void searchLocationTest() {
         goToLocationsPage(driver);
-        addNewLocation(driver, locationName, locationCountry);
+        addNewLocation(driver, location);
 
         LocationsPage locationsPage = new LocationsPage(driver);
-        locationsPage.searchLocation(locationName);
+        locationsPage.searchLocation(location);
 
-        assertThat(locationsPage.getLocationNameColumnFromTable(), everyItem(containsString(locationName)));
+        assertThat(locationsPage.getLocationNameColumnFromTable(), everyItem(containsString(location.getName())));
     }
 }
