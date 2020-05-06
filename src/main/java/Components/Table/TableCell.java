@@ -1,6 +1,5 @@
 package Components.Table;
 
-import Constants.Table.TableColumn;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,8 +20,8 @@ public class TableCell {
         this.cell = cell;
     }
 
-    public void clickOnTagInsideCell(TableColumn column) {
-        cell.findElement(By.tagName(column.getTagSelector())).click();
+    public void clickOnTagInsideCell(String tag) {
+        cell.findElement(By.tagName(tag)).click();
     }
 
     public String getText() {

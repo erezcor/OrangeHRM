@@ -20,6 +20,6 @@ public class rightMenuFramePage extends BasePage {
         try {
             driver.switchTo().frame(driver.findElement(frameSelector));
         }
-        catch (Exception exception) { }
+        catch (Exception exception) {}
     }
 }

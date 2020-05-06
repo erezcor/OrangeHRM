@@ -22,14 +22,14 @@ public class LoginPage extends BasePage {
     }
 
     public void enterUsername(String username) {
-        usernameBox.sendKeys(username);
+        this.usernameBox.sendKeys(username);
     }
 
     public void enterPassword(String password) {
-        passwordBox.sendKeys(password);
+        this.passwordBox.sendKeys(password);
     }
 
     public void clickLogin() {
-        loginButton.click();
+        this.loginButton.click();
     }
 }
