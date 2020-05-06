@@ -1,35 +1,36 @@
 package Tests.LocationTests;
 
-import Entities.Location;
+import Constants.Country;
 import Pages.rightMenuFramePages.Location.LocationInfoPage;
 import Pages.rightMenuFramePages.Location.LocationsPage;
 import Tests.BaseTest;
 import org.junit.Test;
 
+import static Constants.Country.ARGENTINA;
 import static Constants.SuccessMessages.UPDATE_SUCCESS_MESSAGE;
-import static Entities.Location.generateLocation;
+import static Processes.NumberUtils.getRandomNumberAsString;
 import static Processes.Utils.addNewLocation;
 import static Processes.Utils.goToLocationsPage;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class EditLocationTest extends BaseTest {
+    String locationName = "Buenos Aires" + getRandomNumberAsString();
+    String newLocationName = "Buenos Aires" + getRandomNumberAsString();
+    Country locationCountry = ARGENTINA;
     String EDIT_LOCATION_SUCCESS_MESSAGE = UPDATE_SUCCESS_MESSAGE;
-
-    Location locationDetailsForAddingLocation = generateLocation().build();
-    Location locationDetailsForEditingLocation = generateLocation().build();
 
     @Test
     public void editLocation() {
         goToLocationsPage(driver);
-        addNewLocation(driver, locationDetailsForAddingLocation);
+        addNewLocation(driver, locationName, locationCountry);
 
         LocationsPage locationsPage = new LocationsPage(driver);
-        LocationInfoPage locationInfoPage = locationsPage.clickEditLocation(locationDetailsForAddingLocation);
-        locationInfoPage.editLocation(locationDetailsForEditingLocation);
+        LocationInfoPage locationInfoPage = locationsPage.clickEditLocation(locationName);
+        locationInfoPage.editLocation(newLocationName, ARGENTINA.NAME);
 
         assertThat(locationsPage.getSuccessMessageText(), is(EDIT_LOCATION_SUCCESS_MESSAGE));
-        assertThat(locationsPage.getLocationNameColumnFromTable(), hasItem(locationDetailsForEditingLocation.getName()));
-        assertThat(locationsPage.getLocationNameColumnFromTable(), not(hasItem(locationDetailsForAddingLocation.getName())));
+        assertThat(locationsPage.getLocationNameColumnFromTable(), hasItem(newLocationName));
+        assertThat(locationsPage.getLocationNameColumnFromTable(), not(hasItem(locationName)));
     }
 }

@@ -5,11 +5,8 @@ import org.openqa.selenium.WebElement;
 
 import static Constants.CONST.SECONDS_TO_WAIT;
 import static org.openqa.selenium.support.PageFactory.*;
-
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
@@ -25,11 +22,18 @@ public abstract class BasePage {
             initElements(new AjaxElementLocatorFactory(driver, SECONDS_TO_WAIT), this);
         }
 
-        protected Select getSelect(WebElement selectElement) {
-            return new Select(selectElement);
+        protected void type(WebElement element, String text) {
+            //waitToBeVisible(element);
+            element.sendKeys(text);
         }
 
-        protected Actions getActionsObject() {
-        return new Actions(driver);
-    }
+        protected void click(WebElement element) {
+            //waitToBeClickable(element);
+            element.click();
+        }
+
+        public String getCurrentURL() {
+            return (driver.getCurrentUrl());
+        }
+
 }
